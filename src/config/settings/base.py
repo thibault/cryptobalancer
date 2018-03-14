@@ -7,17 +7,10 @@ import environ
 ROOT_DIR = environ.Path(__file__) - 3  # (cryptobalancer/config/settings/base.py - 3 = cryptobalancer/)
 APPS_DIR = ROOT_DIR.path('cryptobalancer')
 
-env = environ.Env()
-
-READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(str(ROOT_DIR.path('.env')))
-
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = env.bool('DJANGO_DEBUG', False)
+DEBUG = False
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
@@ -39,9 +32,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///cryptobalancer'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cryptobalancer',
+        'USER': 'cryptobalancer',
+        'PASSWORD': 'cryptobalancer',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 }
-DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # URLS
 # ------------------------------------------------------------------------------
@@ -207,7 +206,7 @@ FIXTURE_DIRS = (
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # ADMIN
 # ------------------------------------------------------------------------------
@@ -224,7 +223,7 @@ MANAGERS = ADMINS
 # ------------------------------------------------------------------------------
 INSTALLED_APPS += ['cryptobalancer.taskapp.celery.CeleryConfig']
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
-CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='django://')
+CELERY_BROKER_URL = 'django://'
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
 if CELERY_BROKER_URL == 'django://':
     CELERY_RESULT_BACKEND = 'redis://'
@@ -238,7 +237,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 # django-allauth
 # ------------------------------------------------------------------------------
-ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
+ACCOUNT_ALLOW_REGISTRATION = False
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html

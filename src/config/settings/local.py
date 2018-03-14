@@ -1,12 +1,11 @@
 from .base import *  # noqa
-from .base import env
 
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = env.bool('DJANGO_DEBUG', default=True)
+DEBUG = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = env('DJANGO_SECRET_KEY', default='elfiyBaxB1Mtj4kaCE1cEQC2LholgfnrdiYGGrfIvST3CSfl18Q6sHNho18TB1oE')
+SECRET_KEY = 'elfiyBaxB1Mtj4kaCE1cEQC2LholgfnrdiYGGrfIvST3CSfl18Q6sHNho18TB1oE'
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
     "localhost",
@@ -31,7 +30,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa F405
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-host
 EMAIL_HOST = 'localhost'
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-port
