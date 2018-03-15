@@ -9,6 +9,7 @@ SECRET_KEY = 'elfiyBaxB1Mtj4kaCE1cEQC2LholgfnrdiYGGrfIvST3CSfl18Q6sHNho18TB1oE'
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
     "localhost",
+    "cryptobalancer",
     "0.0.0.0",
 ]
 
