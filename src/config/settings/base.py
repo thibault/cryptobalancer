@@ -4,8 +4,9 @@ Base settings to build other settings files upon.
 
 import environ
 
-ROOT_DIR = environ.Path(__file__) - 3  # (cryptobalancer/config/settings/base.py - 3 = cryptobalancer/)
-APPS_DIR = ROOT_DIR.path('cryptobalancer')
+SRC_DIR = environ.Path(__file__) - 3  # (src/config/settings/base.py - 3 = src/)
+ROOT_DIR = SRC_DIR - 1
+CORE_DIR = SRC_DIR.path('core')
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -69,8 +70,8 @@ THIRD_PARTY_APPS = [
     'rest_framework',
 ]
 LOCAL_APPS = [
-    'cryptobalancer.users.apps.UsersConfig',
-    # Your stuff: custom apps go here
+    'users.apps.UsersConfig',
+    'portfolio',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -79,7 +80,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
 MIGRATION_MODULES = {
-    'sites': 'cryptobalancer.contrib.sites.migrations'
+    'sites': 'core.contrib.sites.migrations'
 }
 
 # AUTHENTICATION
@@ -139,12 +140,12 @@ MIDDLEWARE = [
 # STATIC
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = str(ROOT_DIR('staticfiles'))
+STATIC_ROOT = str(ROOT_DIR.path('static'))
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = [
-    str(APPS_DIR.path('static')),
+    str(SRC_DIR.path('static')),
 ]
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
@@ -155,7 +156,7 @@ STATICFILES_FINDERS = [
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = str(APPS_DIR('media'))
+MEDIA_ROOT = str(ROOT_DIR.path('media'))
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
 
@@ -168,7 +169,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
         'DIRS': [
-            str(APPS_DIR.path('templates')),
+            str(SRC_DIR.path('templates')),
         ],
         'OPTIONS': {
             # https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
@@ -200,7 +201,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#fixture-dirs
 FIXTURE_DIRS = (
-    str(APPS_DIR.path('fixtures')),
+    str(CORE_DIR.path('fixtures')),
 )
 
 # EMAIL
@@ -221,7 +222,7 @@ MANAGERS = ADMINS
 
 # Celery
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ['cryptobalancer.taskapp.celery.CeleryConfig']
+INSTALLED_APPS += ['core.taskapp.celery.CeleryConfig']
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
 CELERY_BROKER_URL = 'django://'
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
@@ -245,9 +246,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = 'cryptobalancer.users.adapters.AccountAdapter'
+ACCOUNT_ADAPTER = 'core.users.adapters.AccountAdapter'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = 'cryptobalancer.users.adapters.SocialAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'core.users.adapters.SocialAccountAdapter'
 
 # django-compressor
 # ------------------------------------------------------------------------------
