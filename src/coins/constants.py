@@ -11,7 +11,7 @@ BIP44_COINS = [
     Coin(2, 0x80000002, 'LTC', 'Litecoin', 'https://litecoin.org/'),
     Coin(3, 0x80000003, 'DOGE', 'Dogecoin', 'https://github.com/dogecoin/dogecoin'),
     Coin(4, 0x80000004, 'RDD', 'Reddcoin', ''),
-    Coin(5, 0x80000005, 'DSH', 'Dash', 'https://github.com/dashpay/dash) (ex Darkcoin'),
+    Coin(5, 0x80000005, 'DSH', 'Dash', 'https://github.com/dashpay/dash'),
     Coin(6, 0x80000006, 'PPC', 'Peercoin', 'https://peercoin.net/'),
     Coin(7, 0x80000007, 'NMC', 'Namecoin', 'http://namecoin.info/'),
     Coin(8, 0x80000008, 'FTC', 'Feathercoin', 'https://www.feathercoin.com/'),
