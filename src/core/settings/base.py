@@ -4,7 +4,7 @@ Base settings to build other settings files upon.
 
 import environ
 
-SRC_DIR = environ.Path(__file__) - 3  # (src/config/settings/base.py - 3 = src/)
+SRC_DIR = environ.Path(__file__) - 3  # (src/core/settings/base.py - 3 = src/)
 ROOT_DIR = SRC_DIR - 1
 CORE_DIR = SRC_DIR.path('core')
 
@@ -46,9 +46,9 @@ DATABASES = {
 # URLS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'core.urls'
 # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 # APPS
 # ------------------------------------------------------------------------------
