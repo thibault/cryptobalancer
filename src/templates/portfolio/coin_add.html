@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">{{ _('Add coin') }}</button>
+    <a href="{% url 'coin_list' %}">{{ _('Cancel and back to coin list') }}</a>
+</form>
+{% endblock %}
+

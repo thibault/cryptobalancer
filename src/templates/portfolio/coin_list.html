@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+{% for coin in coins %}
+    <li>{{ coin.get_coin_display }}: {{ coin.balance|floatformat }} {{ coin.coin }}</li>
+{% endfor %}
+</ul>
+<a href="{% url 'coin_add' %}">{{ _('Add entry') }}</a>
+{% endblock %}

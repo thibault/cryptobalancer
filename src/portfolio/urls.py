@@ -1,8 +1,9 @@
 from django.conf.urls import url
 
-from .views import PortfolioView
+from .views import CoinList, CoinAdd
 
 
 urlpatterns = [
-    url(r'^$', PortfolioView.as_view(), name='portfolio'),
+    url(r'^$', CoinList.as_view(), name='coin_list'),
+    url(r'^add/$', CoinAdd.as_view(), name='coin_add'),
 ]
