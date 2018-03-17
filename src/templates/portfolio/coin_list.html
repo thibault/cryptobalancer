@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ul>
-{% for coin in coins %}
-    <li>{{ coin.get_coin_display }}: {{ coin.balance|floatformat }} {{ coin.coin }}</li>
-{% endfor %}
-</ul>
+<table class="ui compact table">
+    <thead>
+        <tr>
+            <th>{{ _('Coin') }}</th>
+            <th>{{ _('Holding') }}</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for coin in coins %}
+    <tr>
+        <td>{{ coin.get_coin_display }}</td>
+        <td>{{ coin.balance|floatformat }} {{ coin.coin }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
 <a href="{% url 'coin_add' %}">{{ _('Add entry') }}</a>
 {% endblock %}
