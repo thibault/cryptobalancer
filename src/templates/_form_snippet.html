@@ -1,0 +1,31 @@
+{{ form.media }}
+
+{% if form.errors %}
+<div class="ui negative message">
+    <ul class="list">
+        {% for field in form %}
+            {% for error in field.errors %}
+                <li>{{ field.label }} : {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% for field in form.hidden_fields %}
+    {{ field }}
+{% endfor %}
+
+{% for field in form.visible_fields %}
+    <div class="field{% if field.errors %} error{% endif %}">
+
+        <label for="{{ field.id }}">
+            {{ field.label }}
+        </label>
+        {{ field }}
+
+        {% if field.help_text %}
+            <span class="helper">{{ field.help_text }}</span>
+        {% endif %}
+    </div>
+{% endfor %}
