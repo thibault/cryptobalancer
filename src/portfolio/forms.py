@@ -1,10 +1,10 @@
 from django import forms
 
-from .models import Balance
+from .models import Position
 
 
-class BalanceForm(forms.ModelForm):
+class PositionForm(forms.ModelForm):
 
     class Meta:
         exclude = []
-        model = Balance
+        model = Position

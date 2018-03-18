@@ -1,9 +1,10 @@
 from django.conf.urls import url
 
-from .views import CoinList, CoinAdd
+from .views import Portfolio, PositionEdit
 
 
 urlpatterns = [
-    url(r'^$', CoinList.as_view(), name='coin_list'),
-    url(r'^add/$', CoinAdd.as_view(), name='coin_add'),
+    url(r'^$', Portfolio.as_view(), name='portfolio'),
+    url(r'^edit/$', PositionEdit.as_view(), name='position_add'),
+    url(r'^edit/(?P<ticker>\w+)/$', PositionEdit.as_view(), name='position_edit'),
 ]

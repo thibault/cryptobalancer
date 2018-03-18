@@ -1,27 +1,40 @@
-from django.views.generic import CreateView, ListView
+from django.views.generic import UpdateView, ListView
 from django.urls import reverse
 
-from .models import Balance
-from .forms import BalanceForm
+from .models import Position
+from .forms import PositionForm
 
 
-class CoinList(ListView):
+class Portfolio(ListView):
     '''Portfolio display / edition.'''
 
     template_name = 'portfolio/coin_list.html'
-    context_object_name = 'coins'
+    context_object_name = 'positions'
 
     def get_queryset(self):
-        qs = Balance.objects \
-            .order_by('-balance', 'coin')
+        qs = Position.objects \
+            .order_by('-position', 'ticker')
         return qs
 
 
-class CoinAdd(CreateView):
-    '''Add coin to portfolio.'''
+class PositionEdit(UpdateView):
+    '''Add position to portfolio.'''
 
     template_name = 'portfolio/coin_add.html'
-    form_class = BalanceForm
+    form_class = PositionForm
+
+    def get_object(self):
+        ticker = self.request.POST.get(
+            'ticker',
+            self.kwargs.get('ticker', None))
+        if ticker:
+            try:
+                position = Position.objects.get(ticker=ticker)
+            except Position.DoesNotExist:
+                position = Position(ticker=ticker)
+        else:
+            position = Position(ticker=ticker)
+        return position
 
     def get_success_url(self):
-        return reverse('coin_list')
+        return reverse('portfolio')

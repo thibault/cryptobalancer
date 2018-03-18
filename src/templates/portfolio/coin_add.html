@@ -5,7 +5,7 @@
     {% csrf_token %}
     {% include '_form_snippet.html' with form=form %}
     <button class="ui primary button" type="submit">{{ _('Add coin') }}</button>
-    <a href="{% url 'coin_list' %}">{{ _('Cancel and back to coin list') }}</a>
+    <a href="{% url 'portfolio' %}">{{ _('Cancel and back to coin list') }}</a>
 </form>
 {% endblock %}
 
