@@ -25,3 +25,20 @@ class Asset(models.Model):
     class Meta:
         verbose_name = _('Asset')
         verbose_name_plural = _('Assets')
+
+
+class Market:
+    '''Utility method to price positions.'''
+
+    def __init__(self):
+        self.assets = dict(
+            (asset.ticker, asset) for asset in Asset.objects.all())
+
+    def get_price(self, position, currency='eur'):
+        asset = self.assets.get(position.ticker, None)
+        if asset:
+            price = position.position * asset.price_eur
+        else:
+            price = None
+
+        return price

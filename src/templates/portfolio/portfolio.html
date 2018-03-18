@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load markets %}
 
 {% block content %}
 <table class="ui compact table">
@@ -6,7 +7,9 @@
         <tr>
             <th>{{ _('Ticker') }}</th>
             <th>{{ _('Position') }}</th>
-            <th>{{ _('Target') }}</th>
+            <th>{{ _('Position (€)') }}</th>
+            <th>{{ _('Target (%)') }}</th>
+            <th>{{ _('Target (€)') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -19,11 +22,13 @@
             </a>
         </td>
         <td>{{ position.position|floatformat }} {{ position.ticker }}</td>
+        <td>{% position_fiat market position %} €</td>
         <td>{{ position.target|floatformat }}%</td>
+        <td></td>
     </tr>
     {% empty %}
     <tr>
-        <td colspan="3">{{ _('There is nothing here yet') }}</td>
+        <td colspan="5">{{ _('There is nothing here yet') }}</td>
     </tr>
     {% endfor %}
     </tbody>
