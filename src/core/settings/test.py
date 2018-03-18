@@ -3,14 +3,13 @@ With these settings, tests run faster.
 """
 
 from .base import *  # noqa
-from .base import env
 
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = False
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = env('DJANGO_SECRET_KEY', default='d15dgVG7FijhEWVXyPnc70LJq7QnBBu2FKNCWvPnFC4lUFOXRXKBYUSdBaNK74YI')
+SECRET_KEY = 'd15dgVG7FijhEWVXyPnc70LJq7QnBBu2FKNCWvPnFC4lUFOXRXKBYUSdBaNK74YI'
 # https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
