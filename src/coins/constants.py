@@ -171,7 +171,7 @@ BIP44_COINS = [
     Coin(162, 0x800000a2, 'BCO', 'Bridgecoin', 'https://bridgecoin.org/'),
     Coin(163, 0x800000a3, 'ELLA', 'Ellaism', 'https://ellaism.org'),
     Coin(164, 0x800000a4, 'PIRL', 'Pirl', 'https://pirl.io'),
-    Coin(165, 0x800000a5, 'XRB', 'RaiBlocks', 'https://raiblocks.com'),
+    Coin(165, 0x800000a5, 'XRB', 'NANO', 'https://nano.com'),
     Coin(166, 0x800000a6, 'VIVO', 'Vivo', 'https://www.vivocrypto.com/'),
     Coin(167, 0x800000a7, 'FRST', 'Firstcoin', 'http://firstcoinproject.com'),
     Coin(168, 0x800000a8, 'HNC', 'Helleniccoin', 'http://www.helleniccoin.gr/'),
