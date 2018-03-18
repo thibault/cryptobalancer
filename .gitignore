@@ -45,6 +45,7 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+.pytest_cache/
 
 # Translations
 *.mo
@@ -52,6 +53,7 @@ coverage.xml
 
 # Django stuff:
 staticfiles/
+CACHE/
 
 # Sphinx documentation
 docs/_build/
@@ -285,5 +287,3 @@ pip-selfcheck.json
 
 
 cryptobalancer/media/
-
-
