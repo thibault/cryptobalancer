@@ -1,4 +1,6 @@
+from decimal import Decimal as D
 from django.views.generic import UpdateView, ListView
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Position
@@ -35,6 +37,16 @@ class PositionEdit(UpdateView):
         else:
             position = Position(ticker=ticker)
         return position
+
+    def form_valid(self, form):
+        if all((
+                self.object.id,
+                form.cleaned_data['target'] == D('0'),
+                form.cleaned_data['position'] == D('0'))):
+            self.object.delete()
+        else:
+            self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse('portfolio')
