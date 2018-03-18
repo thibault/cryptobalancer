@@ -8,7 +8,7 @@ from .forms import PositionForm
 class Portfolio(ListView):
     '''Portfolio display / edition.'''
 
-    template_name = 'portfolio/coin_list.html'
+    template_name = 'portfolio/portfolio.html'
     context_object_name = 'positions'
 
     def get_queryset(self):
@@ -20,7 +20,7 @@ class Portfolio(ListView):
 class PositionEdit(UpdateView):
     '''Add position to portfolio.'''
 
-    template_name = 'portfolio/coin_add.html'
+    template_name = 'portfolio/position_edit.html'
     form_class = PositionForm
 
     def get_object(self):
