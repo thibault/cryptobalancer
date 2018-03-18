@@ -4,8 +4,14 @@
 <form class="ui form" method="post" action="">
     {% csrf_token %}
     {% include '_form_snippet.html' with form=form %}
-    <button class="ui primary button" type="submit">{{ _('Add coin') }}</button>
-    <a href="{% url 'portfolio' %}">{{ _('Cancel and back to coin list') }}</a>
+    <button class="ui primary button" type="submit">
+        {% if form.instance.id %}
+            {{ _('Edit position') }}
+        {% else %}
+            {{ _('Add position') }}
+        {% endif %}
+    </button>
+    <a href="{% url 'portfolio' %}">{{ _('Cancel and go back to portfolio') }}</a>
 </form>
 {% endblock %}
 
