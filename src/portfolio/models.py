@@ -13,9 +13,11 @@ class Position(models.Model):
         decimal_places=18,
         max_digits=18 + 9)
     target = models.DecimalField(
-        verbose_name=_('Target (%)'),
+        verbose_name=_('Target'),
+        help_text=_('How much does this asset should weight in your \
+                    portfolio?'),
         decimal_places=2,
-        max_digits=4)
+        max_digits=8)
 
     class Meta:
         verbose_name = _('Position')

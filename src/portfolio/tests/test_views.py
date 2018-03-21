@@ -100,7 +100,7 @@ def test_delete_existing_position(client):
     assert qs.count() == 0
 
 
-def test_portfolio_display(client):
+def test_portfolio_display_fiat_total(client):
     PositionFactory(ticker='BTC', position=D('1'))
     AssetFactory(ticker='BTC', price_eur=D('10'))
 
@@ -113,3 +113,17 @@ def test_portfolio_display(client):
     url = reverse('portfolio')
     res = client.get(url)
     assert u'<th class="fiat_total">59.00€</th>' in res.content.decode('utf-8')
+
+
+def test_portfolio_display_percent_target(client):
+    PositionFactory(ticker='BTC', position=D('1'), target=D('100'))
+    PositionFactory(ticker='ETH', position=D('1'), target=D('60'))
+    PositionFactory(ticker='DOGE', position=D('1'), target=D('20'))
+    PositionFactory(ticker='NANO', position=D('1'), target=D('20'))
+
+    url = reverse('portfolio')
+    res = client.get(url)
+    content = res.content.decode()
+    assert u'<td>100 (50%)</td>' in content
+    assert u'<td>60 (30%)</td>' in content
+    assert u'<td>20 (10%)</td>' in content

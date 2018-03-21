@@ -20,7 +20,13 @@ class Portfolio(ListView):
         return qs
 
     def get_context_data(self, **kwargs):
-        kwargs['market'] = Market()
+        total_weight = sum(position.target for position in self.object_list)
+        market = Market()
+
+        kwargs['market'] = market
+        kwargs['total_weight'] = total_weight
+        kwargs['total_holding'] = market.get_total_price(self.object_list)
+
         return super().get_context_data(**kwargs)
 
 
