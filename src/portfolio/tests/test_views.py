@@ -2,6 +2,7 @@ from decimal import Decimal as D
 from django.urls import reverse
 import pytest
 
+from markets.tests.factories import AssetFactory
 from portfolio.tests.factories import PositionFactory
 from portfolio.models import Position
 
@@ -97,3 +98,18 @@ def test_delete_existing_position(client):
     res = client.post(url, data)
     assert res.status_code == 302
     assert qs.count() == 0
+
+
+def test_portfolio_display(client):
+    PositionFactory(ticker='BTC', position=D('1'))
+    AssetFactory(ticker='BTC', price_eur=D('10'))
+
+    PositionFactory(ticker='ETH', position=D('1'))
+    AssetFactory(ticker='ETH', price_eur=D('7'))
+
+    PositionFactory(ticker='DOGE', position=D('1'))
+    AssetFactory(ticker='DOGE', price_eur=D('42'))
+
+    url = reverse('portfolio')
+    res = client.get(url)
+    assert u'<th class="fiat_total">59.00€</th>' in res.content.decode('utf-8')

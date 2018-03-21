@@ -1,3 +1,5 @@
+from decimal import Decimal as D
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -34,7 +36,7 @@ class Market:
         self.assets = dict(
             (asset.ticker, asset) for asset in Asset.objects.all())
 
-    def get_price(self, position, currency='eur'):
+    def get_price(self, position):
         asset = self.assets.get(position.ticker, None)
         if asset:
             price = position.position * asset.price_eur
@@ -42,3 +44,10 @@ class Market:
             price = None
 
         return price
+
+    def get_total_price(self, positions):
+        total_price = D('0')
+        for position in positions:
+            total_price += self.get_price(position) or D('0')
+
+        return total_price

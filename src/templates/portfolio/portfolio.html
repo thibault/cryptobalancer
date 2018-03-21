@@ -9,7 +9,6 @@
             <th>{{ _('Position') }}</th>
             <th>{{ _('Position (€)') }}</th>
             <th>{{ _('Target (%)') }}</th>
-            <th>{{ _('Target (€)') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -21,10 +20,9 @@
                 {{ position.ticker }}
             </a>
         </td>
-        <td>{{ position.position|floatformat }} {{ position.ticker }}</td>
+        <td>{{ position.position.normalize }} {{ position.ticker }}</td>
         <td>{% position_fiat market position %} €</td>
-        <td>{{ position.target|floatformat }}%</td>
-        <td></td>
+        <td>{{ position.target.normalize }}%</td>
     </tr>
     {% empty %}
     <tr>
@@ -32,6 +30,13 @@
     </tr>
     {% endfor %}
     </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="2"></th>
+            <th class="fiat_total">{% positions_fiat market positions %}€</th>
+            <th></th>
+        </tr>
+    </tfoot>
 </table>
 <a href="{% url 'position_add' %}">{{ _('Add entry') }}</a>
 {% endblock %}
