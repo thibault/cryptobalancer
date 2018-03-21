@@ -1,54 +1,14 @@
 {% extends 'base.html' %}
-{% load markets %}
 
 {% block content %}
-<table class="ui compact table">
-    <thead>
-        <tr>
-            <th>{{ _('Ticker') }}</th>
-            <th>{{ _('Position') }}</th>
-            <th>{{ _('Position (€)') }}</th>
-            <th>{{ _('Target') }}</th>
-            <th>{{ _('Current') }}</th>
-            <th>{{ _('Delta') }}</th>
-        </tr>
-    </thead>
-    <tbody>
+<h2>{{ _('Your portfolio') }}</h2>
+{% include 'portfolio/_portfolio_rebalance.html' %}
+{% include 'portfolio/_portfolio_table.html' %}
+{% endblock %}
 
-    {% for position in positions %}
-        {% position_fiat market position as position_fiat %}
-        {% ratio position.target total_weight as target_weight %}
-        {% ratio position_fiat total_holding as current_weight %}
-        {% sub current_weight target_weight as delta %}
-        <tr {% if delta|abs > threshold %}class="ui warning"{% endif %}>
-            <td>
-                <a href="{% url 'position_edit' position.ticker %}" >
-                    {{ position.ticker }}
-                </a>
-            </td>
-            <td>{{ position.position.normalize }} {{ position.ticker }}</td>
-            <td>{{ position_fiat|floatformat:2 }}€</td>
-            <td>{{ position.target.normalize }} ({{ target_weight|floatformat:2 }}%)</td>
-            <td>{{ current_weight|floatformat:2 }}%</td>
-            <td>
-                {{ delta|floatformat:2 }}%
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="6">{{ _('There is nothing here yet') }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr>
-            <th colspan="2"></th>
-            <th class="fiat_total">{{ total_holding|floatformat:2 }}€</th>
-            <th>{{ total_weight }} (100%)</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </tfoot>
-</table>
-<a href="{% url 'position_add' %}">{{ _('Add entry') }}</a>
+{% block javascript %}
+{{ block.super }}
+<script>
+$('.ui.accordion').accordion();
+</script>
 {% endblock %}

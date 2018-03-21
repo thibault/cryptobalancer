@@ -1,0 +1,53 @@
+{% load markets %}
+
+<table class="ui compact table">
+    <thead>
+        <tr>
+            <th>{{ _('Ticker') }}</th>
+            <th>{{ _('Position') }}</th>
+            <th>{{ _('Position (€)') }}</th>
+            <th>{{ _('Target') }}</th>
+            <th>{{ _('Delta') }}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for position in positions %}
+        <tr {% if position.weight_delta|abs > threshold %}class="ui warning"{% endif %}>
+            <td>
+                <a href="{% url 'position_edit' position.ticker %}" >
+                    {{ position.ticker }}
+                </a>
+            </td>
+            <td>{{ position.position.normalize }} {{ position.ticker }}</td>
+            <td>
+                {{ position.current_fiat|floatformat:2 }}€
+                ({{ position.current_weight|floatformat:2 }}%)
+            </td>
+            <td>
+                {{ position.target_fiat|floatformat:2 }}€
+                ({{ position.target_weight|floatformat:2 }}%)
+            </td>
+            <td>
+                {{ position.fiat_delta|floatformat:2 }}€
+                ({{ position.weight_delta|floatformat:2 }}%)
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">{{ _('There is nothing here yet') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="2"></th>
+            <th class="fiat_total">{{ total_fiat|floatformat:2 }}€</th>
+            <th>{{ total_fiat|floatformat:2 }}€ (100%)</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+<a href="{% url 'position_add' %}">{{ _('Add entry') }}</a>
