@@ -8,6 +8,9 @@ from .models import Position
 from .forms import PositionForm
 
 
+REBALANCE_THRESHOLD = D('5')
+
+
 class Portfolio(ListView):
     '''Portfolio display / edition.'''
 
@@ -26,6 +29,7 @@ class Portfolio(ListView):
         kwargs['market'] = market
         kwargs['total_weight'] = total_weight
         kwargs['total_holding'] = market.get_total_price(self.object_list)
+        kwargs['threshold'] = REBALANCE_THRESHOLD
 
         return super().get_context_data(**kwargs)
 
