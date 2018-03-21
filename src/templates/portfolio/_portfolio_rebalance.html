@@ -1,0 +1,14 @@
+<div class="ui accordion">
+    <div class="title">
+        <i class="dropdown icon"></i>
+        Rebalancing options
+    </div>
+    <div class="content">
+        <form method="get" action="" class="ui form">
+            {% include '_form_snippet.html' with form=form %}
+            <button type="submit" class="ui primary button">
+                {{ _('Compute rebalancing amounts') }}
+            </button>
+        </form>
+    </div>
+</div>

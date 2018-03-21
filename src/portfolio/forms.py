@@ -15,3 +15,19 @@ class PositionForm(forms.ModelForm):
                         equal to 100, we will automatically compute the \
                         corresponding percentages.')
         }
+
+
+class RebalanceForm(forms.Form):
+    STRATEGIES = [
+        ('buy_and_sell', 'Sell overweighted assets and buy underweightes assets.'),
+        ('buy_only', 'Only rebalance by buying more underweighted assets.'),
+    ]
+
+    invest_amount = forms.DecimalField(
+        label=_('Investing amount'),
+        help_text=_('Do you wish to invest some more fiat while rebalancing?'))
+    strategy = forms.ChoiceField(
+        label=_('Rebalance strategy'),
+        help_text=_('Selling assets will allow for faster rebalancing, but \
+                    could provoke additional costs.'),
+        choices=STRATEGIES)
