@@ -16,6 +16,8 @@ def api_mock():
 
 
 def test_fetch_maket_data(monkeypatch):
+    '''Market data can be saved to db.'''
+
     monkeypatch.setattr(fetch_market_data, 'fetch_raw_data', api_mock)
 
     qs = Asset.objects.all()
@@ -26,6 +28,8 @@ def test_fetch_maket_data(monkeypatch):
 
 
 def test_update_existing_data(monkeypatch):
+    '''Existing entries are updated when fetching market data.'''
+
     AssetFactory(ticker='BTC', price_eur=D('42'))
     qs = Asset.objects.all()
     assert qs.count() == 1
